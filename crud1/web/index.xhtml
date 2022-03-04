@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Pizza Manager</title>
+    </h:head>
+    <h:body>
+        <br/>
+        <br/>
+        <br/>
+        <h:form>
+            <p:panelGrid columns="2" style="margin:0 auto">
+                <p:outputLabel value="PizzaName"/>
+                <p:inputText value="#{pizzaBean.pizzaName}"/>
+
+                <p:outputLabel value="Size"/>
+                <p:inputText value="#{pizzaBean.size}"/>
+
+                <p:commandButton value="Submit order" action="#{pizzaBean.submitOrder()}"/>
+            </p:panelGrid>
+
+        </h:form>
+        <br/>
+        <h:form>
+            <p:panelGrid columns="2" style="margin:0 auto">
+                <p:selectOneMenu value="#{pizzaBean.id}">
+                    <f:selectItems value="#{pizzaBean.ids}"/>   
+                </p:selectOneMenu>
+                <p:commandButton value="Get pizza by ID" action="#{pizzaBean.findPizza()}"/>
+            </p:panelGrid>
+        </h:form>
+        
+        <br/>
+        <br/>
+
+      <p:dataTable value="#{pizzaBean.pizzas}" var="p">
+          <p:column headerText="ID" sortBy="#{p.id}">#{p.id}</p:column>
+          <p:column headerText="Pizzaname" sortBy="#{p.pizzaName}">#{p.pizzaName}</p:column>
+          <p:column headerText="Size" sortBy="#{p.size}">#{p.size}</p:column>
+          <p:column headerText="Operations"> 
+                <p:commandButton value="Remove Pizza" action="#{pizzaBean.removePizza(p.id)}"/>
+                <p:commandButton value="Update Pizza" action="#{pizzaBean.updatePizza(p.id)}"/>
+            </p:column>
+        </p:dataTable>
+    </h:body>
+</html>
